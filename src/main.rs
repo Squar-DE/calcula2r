@@ -7,7 +7,7 @@ use regex::Regex;
 
 fn main() {
     let app = Application::builder()
-        .application_id("com.example.Calculator")
+        .application_id("com.SquareDE.Calcula2r")
         .build();
 
     app.connect_activate(|app| {
