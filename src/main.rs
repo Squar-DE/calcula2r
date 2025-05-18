@@ -1,21 +1,26 @@
 use gtk4::prelude::*;
-use gtk4::{Application, ApplicationWindow, Button, Grid, Label};
+use gtk4::{Button, Grid, Label};
 use std::cell::RefCell;
 use std::rc::Rc;
 use evalexpr::{eval_with_context, ContextWithMutableFunctions, HashMapContext, Value, EvalexprError, Function, ValueType};
 use regex::Regex;
+use libadwaita::{self as adw, prelude::*};
 
 fn main() {
-    let app = Application::builder()
+    let app = adw::Application::builder()
         .application_id("com.SquareDE.Calcula2r")
         .build();
 
     app.connect_activate(|app| {
-        let window = ApplicationWindow::builder()
+        let window = adw::ApplicationWindow::builder()
             .application(app)
-            .title("Calculator")
+            .title("Calcula2r")
             .resizable(false)
             .build();
+        let header = adw::HeaderBar::builder()
+        .title_widget(&gtk4::Label::new(Some("Calcula2r")))
+        .show_end_title_buttons(true)
+        .build();
 
         let grid = Grid::new();
         grid.set_column_spacing(10);
@@ -70,7 +75,7 @@ fn main() {
             }
             
             .paren {
-                background-color: #76949f;
+                background-color: var(--success-bg-color);
             }
         ");
 
@@ -98,9 +103,9 @@ fn main() {
             button.set_size_request(75, 75);
             
             match label_text {
-                "+" | "-" | "×" | "÷" | "^" | "%" | "√" => button.add_css_class("operator"),
-                "=" => button.add_css_class("equals"),
-                "C" => button.add_css_class("clear"),
+                "+" | "-" | "×" | "÷" | "^" | "%" | "√" => button.add_css_class("suggested-action"),
+                "=" => button.add_css_class("suggested-action"),
+                "C" => button.add_css_class("destructive-action"),
                 "(" | ")" => button.add_css_class("paren"),
                 _ => {},
             }
@@ -177,8 +182,7 @@ fn main() {
 
             grid.attach(&button, col, row, 1, 1);
         }
-
-        window.set_child(Some(&grid));
+        window.set_content(Some(&grid));
         window.present();
     });
 
