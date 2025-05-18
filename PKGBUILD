@@ -2,11 +2,11 @@
 pkgname=calcula2r
 pkgver=1.0.0
 pkgrel=1
-pkgdesc="A simple calculator written in Rust with GTK4."
+pkgdesc="A simple calculator written in Rust with GTK4 & LibAdwaita."
 arch=('x86_64')
 url="https://github.com/Squar-DE/calcula2r"
 license=('GPL3')
-depends=('gtk4' 'rust' 'cargo')
+depends=('gtk4' 'rust' 'cargo', 'libadwaita')
 makedepends=('git')
 source=("git+https://github.com/Squar-DE/calcula2r.git")
 sha256sums=('SKIP')
